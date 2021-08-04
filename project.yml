@@ -1,0 +1,81 @@
+name: Appgate # The name of the App
+options: # Some general settings for the project
+  createIntermediateGroups: true # If the folders are nested, also nest the groups in Xcode
+  bundleIdPrefix: "com.sdbt"
+targets: # The List of our targets
+  Appgate:
+    type: application
+    platform: iOS
+    deploymentTarget: "14.0"
+    sources:
+      - path: Appgate
+    # postCompileScripts:
+    #   - path: Scripts/swiftlint.sh
+    #     name: Run swiftlint
+    dependencies:
+      - target: Data
+      - target: Domain
+  AppgateTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "14.0"
+    sources:
+      - path: AppgateTests
+    dependencies:
+      - target: Appgate
+  Data: 
+    type: framework
+    platform: iOS
+    deploymentTarget: "14.0"
+    sources: 
+      - path: Data
+    # postCompileScripts:
+    #   - path: Scripts/swiftlint.sh
+    #     name: Run swiftlint
+    dependencies:
+      - target: Domain
+  DataTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "14.0"
+    sources:
+      - path: DataTests
+    dependencies:
+      - target: Data
+  Domain:
+    type: framework
+    platform: iOS
+    deploymentTarget: "14.0"
+    sources: 
+      - path: Domain
+    # postCompileScripts:
+    #   - path: Scripts/swiftlint.sh
+    #     name: Run swiftlint
+  DomainTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "14.0"
+    sources:
+      - path: DomainTests
+    dependencies:
+      - target: Domain
+  # Injector: 
+  #   type: framework
+  #   platform: iOS
+  #   deploymentTarget: "14.0"
+  #   sources: 
+  #     - path: Injector
+  #   postCompileScripts:
+  #     - path: Scripts/swiftlint.sh
+  #       name: Run swiftlint
+  #   dependencies:
+  #     - target: Domain
+  #     - target: Data
+  # CommonFeatures: 
+  #   type: framework
+  #   platform: iOS
+  #   deploymentTarget: "14.0"
+  #   sources:
+  #     - path: CommonFeatures
+  #   dependencies:
+  #     - package: CouchbaseLiteSwift
